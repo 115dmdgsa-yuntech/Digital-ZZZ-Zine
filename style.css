@@ -257,6 +257,16 @@ body {
         font-size: 0.8rem;
     }
     
+    /* 隱藏概念描述文字 */
+    .concept-text {
+        display: none;
+    }
+
+    /* 如果隱藏後覺得標題圖片跟花朵太近，可以調整標題的下邊距 */
+    .header {
+        margin-bottom: 30px;
+    }
+
     .event-info span:not(:last-child)::after {
         display: none;     /* 手機版換行時隱藏分隔線，避免視覺混亂 */
     }
