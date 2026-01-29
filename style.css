@@ -119,26 +119,58 @@ body {
     min-height: 300px; /* 確保容器有高度 */
 }
 
-.visual-placeholder img {
-    max-width: 100%;
-    height: auto;
-    transition: opacity var(--transition-speed) ease-in-out;
+.visual-placeholder {
+    position: relative;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    min-height: 300px; /* 維持原本圓圈的高度感 */
+    /* 這裡可以加一個寬度限制，避免圖片太大 */
+    width: 100%; 
+    max-width: 300px; /* 你可以根據圖片比例調整這個數值，例如 250px 或 350px */
+    margin: 0 auto;  /* 置中 */
 }
 
-/* 處理兩張圖片重疊 */
+/* 確保兩張花朵圖片都乖乖待在容器內 */
+.visual-placeholder img {
+    width: 100%;      /* 寬度撐滿容器的 300px */
+    max-width: 250px; /* 這邊可以精確限制花的顯示尺寸，不要讓它爆開 */
+    height: auto;     /* 維持比例不變形 */
+    transition: opacity var(--transition-speed) ease-in-out, transform 0.3s ease;
+}
+
+/* 調整重疊位置，確保兩張花中心點一致 */
 .flower-hover {
     position: absolute;
-    opacity: 0; /* 平時隱藏第二型態 */
-}
-
-/* Hover 觸發神經反應 */
-.visual-placeholder:hover .flower-static {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 精準置中重疊 */
     opacity: 0;
 }
 
+/* 第一張圖也要置中，避免切換時跳動 */
+.flower-static {
+    position: relative; /* 作為撐開容器的基礎 */
+    display: block;
+}
+
+/* 觸碰時的微調 */
 .visual-placeholder:hover .flower-hover {
     opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05); /* 置中時稍微放大，增加互動感 */
     filter: drop-shadow(0 0 30px rgba(167, 255, 235, 0.8));
+}
+
+.glow-circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--neon-green) 0%, transparent 70%);
+    opacity: 0.3;
+    filter: blur(20px);
+    animation: pulse 4s infinite ease-in-out;
 }
 
 /* 下載按鈕 */
