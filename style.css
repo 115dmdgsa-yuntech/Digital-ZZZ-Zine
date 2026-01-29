@@ -251,7 +251,7 @@ body {
 }
 
 /* 針對手機版的自動微調 */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .event-info {
         gap: 20px 40px;    /* 手機版：上下間距 20px，左右間距 40px */
         font-size: 0.8rem;
