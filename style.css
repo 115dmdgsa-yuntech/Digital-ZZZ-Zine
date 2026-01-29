@@ -152,10 +152,29 @@ body {
 
 /* 8. 針對手機版的微調 (Media Query) */
 @media (max-width: 768px) {
+    /* 讓整個卡片內部的元素間距更寬鬆 */
+    .content-card {
+        flex-direction: column;
+        padding: 40px 20px; /* 增加上下內距，讓內容不那麼擁擠 */
+        gap: 30px;          /* 增加花朵與文字之間的距離 */
+    }
+
     .visual-placeholder {
-        /* 手機版螢幕小，可以讓花朵稍微縮小一點避免佔據整個畫面 */
-        max-width: 180px; 
-        min-height: 200px;
+        /* 解決偏小的問題：調大手機版的花朵顯示寬度 */
+        max-width: 220px;  /* 原本可能是 180px，現在調大一點 */
+        min-height: 250px; /* 給予足夠的垂直空間 */
+        
+        /* 解決偏上的問題：調整邊距讓它向下移動 */
+        margin: 20px auto 0 auto; 
+    }
+
+    .main-logo img {
+        max-width: 180px;  /* 稍微縮小標題圖片，把空間讓給中央的花朵 */
+    }
+
+    /* 確保手機版的文字描述不會離花朵太近 */
+    .info-section {
+        margin-top: 10px;
     }
 }
 
