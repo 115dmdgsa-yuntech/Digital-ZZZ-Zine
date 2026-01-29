@@ -50,12 +50,30 @@ body {
     opacity: 0.8;
 }
 
-.main-title {
-    font-size: 3.5rem;
-    margin: 10px 0;
-    letter-spacing: 15px;
-    font-weight: 300;
-    text-shadow: 0 0 20px rgba(167, 255, 235, 0.5);
+/* 針對標準字圖片的設定 */
+.main-logo img {
+    max-width: 300px; /* 電腦版的最大寬度，可根據需求調整 */
+    width: 80%;       /* 在小螢幕時會自動縮小 */
+    height: auto;     /* 保持圖片比例 */
+    margin: 20px auto;
+    display: block;
+    
+    /* 增加類似圖片中的發光感 */
+    filter: drop-shadow(0 0 15px rgba(167, 255, 235, 0.6)); 
+    transition: transform 0.3s ease;
+}
+
+/* 互動效果：滑鼠移上去時有微弱的訊號跳動感 */
+.main-logo img:hover {
+    transform: scale(1.02);
+    filter: drop-shadow(0 0 25px rgba(167, 255, 235, 0.9));
+}
+
+/* 手機版微調 */
+@media (max-width: 768px) {
+    .main-logo img {
+        max-width: 200px; /* 手機上縮小一點，避免佔據太多空間 */
+    }
 }
 
 .concept-text {
