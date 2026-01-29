@@ -77,10 +77,15 @@ body {
 }
 
 .concept-text {
-    max-width: 600px;
+    max-width: 900px;
+    white-space: normal; 
+    
     margin: 0 auto;
-    font-size: 0.9rem;
+    font-size: 0.95rem; /* 稍微放大一點點，增加閱讀舒適度 */
     opacity: 0.7;
+    letter-spacing: 0.05em; /* 增加一點點字距，符合神經傳導的輕盈感 */
+    text-align: center;
+    
 }
 
 /* 卡片區塊 (響應式核心) */
@@ -209,33 +214,35 @@ body {
 }
 
 /* 調整底部展覽資訊：適用於所有裝置的基礎設定 */
+
 .event-info {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;       /* 寬度不夠時自動換行 */
+    flex-wrap: wrap;       
     
-    /* 電腦版預設間距：設定大一點（例如 80px）讓資訊散開 */
-    gap: 100px;             
+    /* 電腦版間距：從 80px 調降到 40px ~ 50px 左右比較剛好 */
+    gap: 45px;             
     
     margin: 40px auto;
+    max-width: 800px;      /* 關鍵：限制底部資訊的總寬度，避免電腦版散太開 */
     padding: 0 20px;
     color: var(--neon-green);
     opacity: 0.8;
-    font-size: 0.8rem;
-    letter-spacing: 0.15em; /* 拉開字體間的距離，增加精緻感 */
+    font-size: 0.9rem;
+    letter-spacing: 0.12em; 
 }
 
 .event-info span {
-    white-space: nowrap;   /* 防止單個日期資訊被強制斷行 */
+    white-space: nowrap;   
     position: relative;
 }
 
-/* 在展覽資訊之間加入一個微小的垂直分隔線（可選，增加層次感） */
+/* 分隔線設定也要跟著縮減距離 */
 .event-info span:not(:last-child)::after {
     content: "";
     position: absolute;
-    right: -40px;          /* 剛好在 gap 80px 的中間 */
+    right: -22px;          /* 剛好在 gap 45px 的中間位置 */
     top: 50%;
     transform: translateY(-50%);
     width: 1px;
