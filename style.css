@@ -155,14 +155,14 @@ body {
     /* 讓整個卡片內部的元素間距更寬鬆 */
     .content-card {
         flex-direction: column;
-        padding: 40px 20px; /* 增加上下內距，讓內容不那麼擁擠 */
-        gap: 30px;          /* 增加花朵與文字之間的距離 */
+        padding: 40px 40px; /* 增加上下內距，讓內容不那麼擁擠 */
+        gap: 10px;          /* 增加花朵與文字之間的距離 */
     }
 
     .visual-placeholder {
         /* 解決偏小的問題：調大手機版的花朵顯示寬度 */
-        max-width: 220px;  /* 原本可能是 180px，現在調大一點 */
-        min-height: 250px; /* 給予足夠的垂直空間 */
+        max-width: 240px;  /* 原本可能是 180px，現在調大一點 */
+        min-height: 280px; /* 給予足夠的垂直空間 */
         
         /* 解決偏上的問題：調整邊距讓它向下移動 */
         margin: 20px auto 0 auto; 
@@ -206,6 +206,53 @@ body {
     background: var(--neon-green);
     color: var(--bg-dark);
     box-shadow: 0 0 30px rgba(167, 255, 235, 0.5);
+}
+
+/* 調整底部展覽資訊：適用於所有裝置的基礎設定 */
+.event-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;       /* 寬度不夠時自動換行 */
+    
+    /* 電腦版預設間距：設定大一點（例如 80px）讓資訊散開 */
+    gap: 80px;             
+    
+    margin: 40px auto;
+    padding: 0 20px;
+    color: var(--neon-green);
+    opacity: 0.8;
+    font-size: 0.9rem;
+    letter-spacing: 0.15em; /* 拉開字體間的距離，增加精緻感 */
+}
+
+.event-info span {
+    white-space: nowrap;   /* 防止單個日期資訊被強制斷行 */
+    position: relative;
+}
+
+/* 在展覽資訊之間加入一個微小的垂直分隔線（可選，增加層次感） */
+.event-info span:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: -40px;          /* 剛好在 gap 80px 的中間 */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 12px;
+    background-color: rgba(167, 255, 235, 0.3);
+}
+
+/* 針對手機版的自動微調 */
+@media (max-width: 768px) {
+    .event-info {
+        gap: 20px 40px;    /* 手機版：上下間距 20px，左右間距 40px */
+        font-size: 0.8rem;
+    }
+    
+    .event-info span:not(:last-child)::after {
+        display: none;     /* 手機版換行時隱藏分隔線，避免視覺混亂 */
+    }
 }
 
 .footer {
