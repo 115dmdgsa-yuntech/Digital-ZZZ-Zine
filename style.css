@@ -116,51 +116,47 @@ body {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    min-height: 300px; /* 確保容器有高度 */
+    min-height: 350px; /* 維持一定的操作空間 */
+    
+    /* 關鍵：限制電腦版圖片容器的寬度 */
+    max-width: 280px;  /* 你可以根據你的花朵比例，調成 200px ~ 300px 之間 */
+    margin: 0 auto;    /* 確保在電腦版垂直排列時也能置中 */
 }
 
-.visual-placeholder {
-    position: relative;
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    min-height: 300px; /* 維持原本圓圈的高度感 */
-    /* 這裡可以加一個寬度限制，避免圖片太大 */
-    width: 100%; 
-    max-width: 300px; /* 你可以根據圖片比例調整這個數值，例如 250px 或 350px */
-    margin: 0 auto;  /* 置中 */
-}
-
-/* 確保兩張花朵圖片都乖乖待在容器內 */
 .visual-placeholder img {
-    width: 100%;      /* 寬度撐滿容器的 300px */
-    max-width: 250px; /* 這邊可以精確限制花的顯示尺寸，不要讓它爆開 */
-    height: auto;     /* 維持比例不變形 */
+    /* 讓圖片寬度撐滿上面設定的 280px */
+    width: 100%;
+    height: auto;
     transition: opacity var(--transition-speed) ease-in-out, transform 0.3s ease;
+    
+    /* 增加一點生物感的濾鏡 */
+    filter: drop-shadow(0 0 10px rgba(167, 255, 235, 0.3));
 }
 
-/* 調整重疊位置，確保兩張花中心點一致 */
+/* 確保第二張圖精準重疊 */
 .flower-hover {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* 精準置中重疊 */
+    transform: translate(-50%, -50%); 
     opacity: 0;
+    width: 100%; /* 跟第一張一樣大 */
 }
 
-/* 第一張圖也要置中，避免切換時跳動 */
-.flower-static {
-    position: relative; /* 作為撐開容器的基礎 */
-    display: block;
-}
-
-/* 觸碰時的微調 */
+/* 當滑鼠碰觸時，除了切換圖片，再加一點微小的縮放感 */
 .visual-placeholder:hover .flower-hover {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1.05); /* 置中時稍微放大，增加互動感 */
+    transform: translate(-50%, -50%) scale(1.05); 
     filter: drop-shadow(0 0 30px rgba(167, 255, 235, 0.8));
+}
+
+/* 8. 針對手機版的微調 (Media Query) */
+@media (max-width: 768px) {
+    .visual-placeholder {
+        /* 手機版螢幕小，可以讓花朵稍微縮小一點避免佔據整個畫面 */
+        max-width: 180px; 
+        min-height: 200px;
+    }
 }
 
 .glow-circle {
