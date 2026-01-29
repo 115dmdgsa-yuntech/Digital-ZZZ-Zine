@@ -110,24 +110,35 @@ body {
 
 /* 視覺佔位 (模擬圖中花朵位置) */
 .visual-placeholder {
+    position: relative;
     flex: 1;
     display: flex;
     justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    min-height: 300px; /* 確保容器有高度 */
 }
 
-.glow-circle {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background: radial-gradient(circle, var(--neon-green) 0%, transparent 70%);
-    opacity: 0.3;
-    filter: blur(20px);
-    animation: pulse 4s infinite ease-in-out;
+.visual-placeholder img {
+    max-width: 100%;
+    height: auto;
+    transition: opacity var(--transition-speed) ease-in-out;
 }
 
-@keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 0.2; }
-    50% { transform: scale(1.1); opacity: 0.4; }
+/* 處理兩張圖片重疊 */
+.flower-hover {
+    position: absolute;
+    opacity: 0; /* 平時隱藏第二型態 */
+}
+
+/* Hover 觸發神經反應 */
+.visual-placeholder:hover .flower-static {
+    opacity: 0;
+}
+
+.visual-placeholder:hover .flower-hover {
+    opacity: 1;
+    filter: drop-shadow(0 0 30px rgba(167, 255, 235, 0.8));
 }
 
 /* 下載按鈕 */
