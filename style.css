@@ -216,7 +216,7 @@ body {
     flex-wrap: wrap;       /* 寬度不夠時自動換行 */
     
     /* 電腦版預設間距：設定大一點（例如 80px）讓資訊散開 */
-    gap: 80px;             
+    gap: 140px;             
     
     margin: 40px auto;
     padding: 0 20px;
