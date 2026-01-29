@@ -216,13 +216,13 @@ body {
     flex-wrap: wrap;       /* 寬度不夠時自動換行 */
     
     /* 電腦版預設間距：設定大一點（例如 80px）讓資訊散開 */
-    gap: 140px;             
+    gap: 100px;             
     
     margin: 40px auto;
     padding: 0 20px;
     color: var(--neon-green);
     opacity: 0.8;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     letter-spacing: 0.15em; /* 拉開字體間的距離，增加精緻感 */
 }
 
