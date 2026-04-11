@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>值植質 - 數位專刊</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -13,7 +14,7 @@
         </header>
 
         <main class="main-content">
-            <div class="visual-container">
+            <div class="visual-container" data-aos="fade-right">
                 <img src="svg/AN.svg" class="hud hud-tl" alt="AN-XX">
                 <img src="svg/IN.svg" class="hud hud-br" alt="IN-XX">
                 <img src="svg/MD.svg" class="hud hud-bl" alt="MD-XX">
@@ -24,7 +25,7 @@
                 </div>
             </div>
 
-            <div class="content-section">
+            <div class="content-section" data-aos="fade-left">
                 <div class="logo-wrapper">
                     <img src="svg/LOGO.svg" class="main-logo" alt="值植質">
                 </div>
@@ -48,5 +49,13 @@
             </div>
         </footer>
     </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    </script>
 </body>
 </html>
