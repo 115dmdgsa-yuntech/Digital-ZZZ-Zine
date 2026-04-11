@@ -1,157 +1,134 @@
-/* 基礎設定 */
-:root {
-    --neon-green: #a7ffeb;
-    --bg-dark: #0a1a16;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* 1. 基礎設定修正：確保背景圖全螢幕 */
 body {
-    background-color: var(--bg-dark);
-    /* 這裡換成你從 AI 匯出的電腦版大背景圖 */
-    background-image: url('svg/BT01.svg'); 
-    background-size: cover;
+    background-color: #0a1a16; /* 深綠色底 */
+    /* 這裡請換成你從 AI 匯出的「電腦版大背景圖」路徑 */
+    background-image: url('svg/BG01.jpg'); 
+    background-size: cover; /* 關鍵：讓背景圖撐滿螢幕 */
     background-position: center;
-    background-attachment: fixed;
+    background-attachment: fixed; /* 讓背景固定，增加沉浸感 */
     color: white;
     font-family: "Noto Sans TC", sans-serif;
     min-height: 100vh;
-}
-
-/* 佈局容器 */
-.container {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-    padding: 40px;
 }
 
+/* 2. 整體容器：去掉固定的寬度限制 */
+.container {
+    width: 100%;
+    max-width: 100%; /* 放開寬度限制，讓內容可以散開 */
+    margin: 0;
+    padding: 60px; /* 給四周一點留白 */
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* 佔滿剩餘高度 */
+}
+
+/* 3. 主內容區：核心修復 (Flexbox 左右排列) */
 .main-content {
-    flex: 1;
+    flex: 1; /* 佔滿剩餘空間 */
+    display: flex;
+    justify-content: space-around; /* 關鍵：讓左邊的花和右邊的字「散開」 */
+    align-items: center; /* 垂直置中 */
+    gap: 50px; /* 兩者之間的保險距離 */
+    width: 100%;
+    max-width: 1400px; /* 限制最大寬度，避免在超大螢幕散太開 */
+    margin: 0 auto; /* 整體置中 */
+}
+
+/* 4. 左側视觉區塊 (Visual Container) */
+.visual-container {
+    flex: 1; /* 佔用彈性空間 */
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 60px;
+    position: relative; /* 為了讓角落的 HUD 框定位 */
 }
 
-/* 左側：花朵與 HUD */
-.visual-container {
-    position: relative;
-    width: 50%;
-    max-width: 600px;
-}
-
+/* 5. 花朵本身：不要給絕對定位 */
 .flower-wrapper {
-    position: relative;
     width: 100%;
+    max-width: 600px; /* 限制花朵最大尺寸，對應設計稿 */
+    position: relative;
     cursor: pointer;
 }
 
 .flower-img {
-    width: 100%;
-    transition: opacity 0.5s ease;
+    width: 100%; /* 撐滿 wrapper */
+    height: auto;
 }
 
-.flower-img.hover {
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-}
-
-.flower-wrapper:hover .flower-img.hover {
-    opacity: 1;
-}
-
-.hud {
-    position: absolute;
-    width: 60px;
-    opacity: 0.8;
-}
-
-.hud-tl { top: -20px; left: -20px; }
-.hud-br { bottom: 20px; right: -20px; }
-.hud-bl { bottom: -20px; left: 0; }
-
-/* 右側：Logo 與按鈕 */
+/* 6. 右側操作區塊 (Action Section) */
 .content-section {
-    width: 40%;
+    flex: 1; /* 佔用彈性空間 */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 內容置中 */
     text-align: center;
+}
+
+/* 7. Logo 與描述文字 */
+.logo-wrapper {
+    width: 100%;
+    max-width: 400px; /* 對應設計稿 Logo 大小 */
+    margin-bottom: 40px;
 }
 
 .main-logo {
     width: 100%;
-    max-width: 300px;
-    filter: drop-shadow(0 0 10px rgba(167, 255, 235, 0.5));
+    height: auto;
+    filter: drop-shadow(0 0 15px rgba(167, 255, 235, 0.6)); /* CSS 加強霓虹感 */
 }
 
 .concept-text {
-    margin: 30px 0;
-    font-size: 0.95rem;
+    font-size: 1rem;
     line-height: 1.8;
-    opacity: 0.8;
     letter-spacing: 0.1em;
-    max-width: 500px; /* 限制寬度讓電腦版排版更好看 */
+    opacity: 0.8;
+    margin-bottom: 60px;
+    max-width: 480px; /* 限制文字寬度，避免排成太長一串 */
 }
 
+/* 8. 按鈕群組 */
 .button-group {
     display: flex;
-    gap: 20px;
-    justify-content: center;
+    gap: 30px;
 }
 
 .btn-main {
-    padding: 12px 30px;
+    padding: 15px 40px;
     border: 1px solid var(--neon-green);
     color: var(--neon-green);
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 1rem;
     transition: all 0.3s ease;
 }
 
 .btn-main:hover {
-    background: var(--neon-green);
+    background-color: var(--neon-green);
     color: black;
-    box-shadow: 0 0 15px var(--neon-green);
+    box-shadow: 0 0 20px var(--neon-green);
 }
 
-/* 底部資訊：校內展、新一代 */
+/* 9. 數據框絕對定位 (钉在花朵四周) */
+.hud-box {
+    position: absolute;
+    width: 80px; /* 根據匯出尺寸調整 */
+    z-index: 10;
+}
+
+.hud-tl { top: -30px; left: -30px; } /* 左上 */
+.hud-br { bottom: 30px; right: -30px; } /* 右下 */
+.hud-bl { bottom: -30px; left: 0; } /* 左下 */
+
+/* 10. 確保 Footer 不換行 */
 .event-info {
     display: flex;
     justify-content: center;
-    gap: 50px; /* 調整後的舒適間距 */
-    font-size: 0.85rem;
-    opacity: 0.6;
-    margin-top: 40px;
-}
-
-/* 響應式：手機版微調 */
-@media (max-width: 1024px) {
-    body {
-        background-image: url('svg/BT02.svg');
-    }
-
-    .main-content {
-        flex-direction: column;
-        gap: 30px;
-    }
-
-    .visual-container, .content-section {
-        width: 100%;
-    }
-
-    /* 隱藏描述文字 */
-    .concept-text {
-        display: none !important;
-    }
-
-    .event-info {
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-    }
+    gap: 40px;
+    flex-wrap: nowrap; /* 強制不換行 */
+    font-size: 0.9rem;
+    opacity: 0.7;
+    margin-top: auto; /* 推到底部 */
+    padding-top: 40px;
 }
