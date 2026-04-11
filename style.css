@@ -93,9 +93,33 @@ body {
     opacity: 0.8;
 }
 
-.hud-tl { top: -30px; left: -30px; } /* 左上 */
-.hud-br { bottom: 30px; right: -30px; } /* 右下 */
-.hud-bl { bottom: -30px; left: 0; } /* 左下 */
+/* 1. 放大 HUD 框的尺寸 */
+.hud {
+    position: absolute;
+    /* 原本可能是 60px 或 70px，我們把它放大到 100px 左右 */
+    width: 100px; 
+    opacity: 0.9; /* 稍微增加不透明度，讓細線條更清楚 */
+    transition: all 0.3s ease; /* 增加一個平滑過渡 */
+    z-index: 10;
+}
+
+/* 2. 縮短與花朵的距離 (調整 top/left/right/bottom 的數值) */
+/* 數值越接近 0，離花朵越近；你可以根據視覺感受微調這些像素 */
+
+.hud-tl { 
+    top: 20px;    /* 從 -30px 改為正值，會往花朵中心靠攏 */
+    left: 20px;   /* 從 -30px 改為正值 */
+}
+
+.hud-br { 
+    bottom: 50px; /* 原本可能太遠，往上縮一點 */
+    right: 20px;  /* 往左縮一點 */
+}
+
+.hud-bl { 
+    bottom: 20px; 
+    left: 40px;   /* 根據你的花瓣位置調整 */
+}
 
 /* 5. 右側操作區 (Content Section) */
 .content-section {
@@ -194,7 +218,7 @@ body {
         max-width: 200px; /* 縮小按鈕寬度，讓視覺更精緻 */
         margin: 0 auto;
     }
-    
+
     .main-content {
         flex-direction: column; /* 改為上下排列 */
         gap: 30px;
