@@ -20,8 +20,14 @@ body {
     color: white;
     font-family: "Noto Sans TC", sans-serif;
     min-height: 100vh;
+    /* 在你原本的 body 樣式裡加入這一行 */
+    animation: backgroundGlow 8s infinite ease-in-out;
 }
 
+@keyframes backgroundGlow {
+    0%, 100% { filter: brightness(1) contrast(1); }
+    50% { filter: brightness(1.15) contrast(1.05); } /* 稍微變亮並增加對比 */
+}
 /* 2. 佈局容器 */
 .container {
     display: flex;
