@@ -11,22 +11,45 @@
 }
 
 body {
-    background-color: var(--bg-dark);
-    /* 核心修復：使用從 AI 匯出的「電腦版全螢幕大背景」 */
-    background-image: url('svg/BG01.jpg'); 
-    background-size: cover; /* 撐滿螢幕 */
-    background-position: center;
-    background-attachment: fixed; /* 背景固定 */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* 防止背景晃動產生橫向捲軸 */
     color: white;
     font-family: "Noto Sans TC", sans-serif;
     min-height: 100vh;
-    /* 在你原本的 body 樣式裡加入這一行 */
-    animation: backgroundGlow 8s infinite ease-in-out;
+    background-color: #0a1a16; /* 底色留著，防止圖片沒載入時全白 */
 }
 
-@keyframes backgroundGlow {
-    0%, 100% { filter: brightness(1) contrast(1); }
-    50% { filter: brightness(1.15) contrast(1.05); } /* 稍微變亮並增加對比 */
+body::before {
+    content: "";
+    position: fixed; /* 固定在螢幕，不隨捲軸滾動 */
+    top: -5%; 
+    left: -5%;
+    width: 110%; /* 寬高比螢幕大 10%，預留晃動空間 */
+    height: 110%;
+    
+    /* 這裡放你的背景圖 */
+    background-image: url('images/bg_desktop.webp'); 
+    background-size: cover;
+    background-position: center;
+    z-index: -1; /* 確保在最底層 */
+    
+    /* 綁定動畫 */
+    animation: backgroundBreathing 12s infinite ease-in-out;
+    pointer-events: none; /* 讓滑鼠點擊可以直接穿過這一層 */
+    will-change: transform, filter; /* 告訴瀏覽器這層會動，跑起來更順 */
+}
+
+/* --- 步驟 C：定義動畫內容 --- */
+@keyframes backgroundBreathing {
+    0%, 100% {
+        filter: brightness(1) contrast(1);
+        transform: scale(1) translate(0, 0);
+    }
+    50% {
+        filter: brightness(1.15) contrast(1.1); /* 稍微變亮 */
+        transform: scale(1.02) translate(3px, 3px); /* 極微幅放大並位移 */
+    }
 }
 /* 2. 佈局容器 */
 .container {
