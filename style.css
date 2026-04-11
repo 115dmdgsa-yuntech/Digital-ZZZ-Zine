@@ -40,18 +40,6 @@ body::before {
     will-change: transform, filter; /* 告訴瀏覽器這層會動，跑起來更順 */
 }
 
-/* --- 步驟 C：定義動畫內容 --- */
-@keyframes backgroundBreathing {
-    0%, 100% {
-        filter: brightness(1) contrast(1);
-        transform: scale(1) translate(0, 0);
-    }
-    50% {
-        filter: brightness(1.5) contrast(1.2); /* 亮度調到 1.5 倍 */
-        transform: scale(1.1) translate(15px, 15px); /* 放大 1.1 倍並明顯位移 */
-    }
-}
-
 /* 2. 佈局容器 */
 .container {
     display: flex;
@@ -281,3 +269,38 @@ body::before {
         gap: 15px;
     }
 }
+
+/* --- 步驟 C：定義動畫內容 --- */
+@keyframes backgroundBreathing {
+    0%, 100% {
+        filter: brightness(1) contrast(1);
+        transform: scale(1) translate(0, 0);
+    }
+    50% {
+        filter: brightness(1.5) contrast(1.2); /* 亮度調到 1.5 倍 */
+        transform: scale(1.1) translate(15px, 15px); /* 放大 1.1 倍並明顯位移 */
+    }
+}
+
+@keyframes flower-breathe {
+  0%, 100% {
+    /* 靜止狀態：標準發光與透明度 */
+    filter: drop-shadow(0 0 10px rgba(167, 255, 235, 0.4));
+    opacity: 0.95;
+  }
+  50% {
+    /* 呼吸頂點：稍微增加發光強度、擴散範圍和透明度 */
+    filter: drop-shadow(0 0 20px rgba(167, 255, 235, 0.7)) brightness(1.1);
+    opacity: 1;
+  }
+}
+
+/* 將動畫應用於花朵圖片 */
+.flower-img {
+  width: 100%;
+  height: auto;
+  /* 綁定動畫：flower-breathe, 持續 6 秒, 無限循環, 平滑過渡 */
+  animation: flower-breathe 6s infinite ease-in-out;
+  will-change: filter, opacity; /* 告訴瀏覽器這兩個屬性會動，跑起來更順 */
+}
+
