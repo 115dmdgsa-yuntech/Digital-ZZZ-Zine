@@ -1,280 +1,157 @@
-/* 全域設定 */
+/* 基礎設定 */
 :root {
-    --primary-green: #2d5a52;
     --neon-green: #a7ffeb;
-    --bg-dark: #0a1211;
-    --glass-bg: rgba(255, 255, 255, 0.05);
+    --bg-dark: #0a1a16;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    padding: 0;
     background-color: var(--bg-dark);
-    color: #fff;
-    font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
-    line-height: 1.6;
-    overflow-x: hidden;
-}
-
-/* 磨砂背景與發光效果 */
-.background-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at 50% 50%, #1a3a35 0%, #0a1211 100%);
-    z-index: -1;
-}
-
-.container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 40px 20px;
+    /* 這裡換成你從 AI 匯出的電腦版大背景圖 */
+    background-image: url('svg/BT01.svg'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    font-family: "Noto Sans TC", sans-serif;
     min-height: 100vh;
+}
+
+/* 佈局容器 */
+.container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-}
-
-/* 標題區塊 */
-.header {
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-.school-name {
-    font-size: 0.8rem;
-    letter-spacing: 2px;
-    color: var(--neon-green);
-    opacity: 0.8;
-}
-
-/* 針對標準字圖片的設定 */
-.main-logo img {
-    max-width: 300px; /* 電腦版的最大寬度，可根據需求調整 */
-    width: 80%;       /* 在小螢幕時會自動縮小 */
-    height: auto;     /* 保持圖片比例 */
-    margin: 20px auto;
-    display: block;
-    
-    /* 增加類似圖片中的發光感 */
-    filter: drop-shadow(0 0 15px rgba(167, 255, 235, 0.6)); 
-    transition: transform 0.3s ease;
-}
-
-/* 互動效果：滑鼠移上去時有微弱的訊號跳動感 */
-.main-logo img:hover {
-    transform: scale(1.02);
-    filter: drop-shadow(0 0 25px rgba(167, 255, 235, 0.9));
-}
-
-/* 手機版微調 */
-@media (max-width: 768px) {
-    .main-logo img {
-        max-width: 200px; /* 手機上縮小一點，避免佔據太多空間 */
-    }
-}
-
-.concept-text {
-    max-width: 900px;
-    white-space: normal; 
-    
-    margin: 0 auto;
-    font-size: 0.95rem; /* 稍微放大一點點，增加閱讀舒適度 */
-    opacity: 0.7;
-    letter-spacing: 0.05em; /* 增加一點點字距，符合神經傳導的輕盈感 */
-    text-align: center;
-    
-}
-
-/* 卡片區塊 (響應式核心) */
-.content-card {
-    background: var(--glass-bg);
-    border: 1px solid rgba(167, 255, 235, 0.2);
-    border-radius: 20px;
+    min-height: 100vh;
     padding: 40px;
-    backdrop-filter: blur(10px);
-    display: flex;
-    align-items: center;
-    gap: 40px;
 }
 
-/* 手機版調整：從橫排變直排 */
-@media (max-width: 768px) {
-    .content-card {
-        flex-direction: column;
-        padding: 20px;
-        text-align: center;
-    }
-    .main-title {
-        font-size: 2.2rem;
-        letter-spacing: 8px;
-    }
-}
-
-/* 視覺佔位 (模擬圖中花朵位置) */
-.visual-placeholder {
-    position: relative;
+.main-content {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
-    min-height: 350px; /* 維持一定的操作空間 */
-    
-    /* 關鍵：限制電腦版圖片容器的寬度 */
-    max-width: 280px;  /* 你可以根據你的花朵比例，調成 200px ~ 300px 之間 */
-    margin: 0 auto;    /* 確保在電腦版垂直排列時也能置中 */
+    gap: 60px;
 }
 
-.visual-placeholder img {
-    /* 讓圖片寬度撐滿上面設定的 280px */
+/* 左側：花朵與 HUD */
+.visual-container {
+    position: relative;
+    width: 50%;
+    max-width: 600px;
+}
+
+.flower-wrapper {
+    position: relative;
     width: 100%;
-    height: auto;
-    transition: opacity var(--transition-speed) ease-in-out, transform 0.3s ease;
-    
-    /* 增加一點生物感的濾鏡 */
-    filter: drop-shadow(0 0 10px rgba(167, 255, 235, 0.3));
+    cursor: pointer;
 }
 
-/* 確保第二張圖精準重疊 */
-.flower-hover {
+.flower-img {
+    width: 100%;
+    transition: opacity 0.5s ease;
+}
+
+.flower-img.hover {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); 
+    top: 0;
+    left: 0;
     opacity: 0;
-    width: 100%; /* 跟第一張一樣大 */
 }
 
-/* 當滑鼠碰觸時，除了切換圖片，再加一點微小的縮放感 */
-.visual-placeholder:hover .flower-hover {
+.flower-wrapper:hover .flower-img.hover {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1.05); 
-    filter: drop-shadow(0 0 30px rgba(167, 255, 235, 0.8));
 }
 
-/* 8. 針對手機版的微調 (Media Query) */
-@media (max-width: 768px) {
-    /* 讓整個卡片內部的元素間距更寬鬆 */
-    .content-card {
-        flex-direction: column;
-        padding: 40px 40px; /* 增加上下內距，讓內容不那麼擁擠 */
-        gap: 10px;          /* 增加花朵與文字之間的距離 */
-    }
-
-    .visual-placeholder {
-        /* 解決偏小的問題：調大手機版的花朵顯示寬度 */
-        max-width: 240px;  /* 原本可能是 180px，現在調大一點 */
-        min-height: 280px; /* 給予足夠的垂直空間 */
-        
-        /* 解決偏上的問題：調整邊距讓它向下移動 */
-        margin: 20px auto 0 auto; 
-    }
-
-    .main-logo img {
-        max-width: 180px;  /* 稍微縮小標題圖片，把空間讓給中央的花朵 */
-    }
-
-    /* 確保手機版的文字描述不會離花朵太近 */
-    .info-section {
-        margin-top: 10px;
-    }
+.hud {
+    position: absolute;
+    width: 60px;
+    opacity: 0.8;
 }
 
-.glow-circle {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background: radial-gradient(circle, var(--neon-green) 0%, transparent 70%);
-    opacity: 0.3;
-    filter: blur(20px);
-    animation: pulse 4s infinite ease-in-out;
+.hud-tl { top: -20px; left: -20px; }
+.hud-br { bottom: 20px; right: -20px; }
+.hud-bl { bottom: -20px; left: 0; }
+
+/* 右側：Logo 與按鈕 */
+.content-section {
+    width: 40%;
+    text-align: center;
 }
 
-/* 下載按鈕 */
-.download-btn {
-    display: inline-block;
-    margin-top: 25px;
-    padding: 15px 40px;
-    background: transparent;
+.main-logo {
+    width: 100%;
+    max-width: 300px;
+    filter: drop-shadow(0 0 10px rgba(167, 255, 235, 0.5));
+}
+
+.concept-text {
+    margin: 30px 0;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    opacity: 0.8;
+    letter-spacing: 0.1em;
+    max-width: 500px; /* 限制寬度讓電腦版排版更好看 */
+}
+
+.button-group {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.btn-main {
+    padding: 12px 30px;
     border: 1px solid var(--neon-green);
     color: var(--neon-green);
     text-decoration: none;
-    border-radius: 50px;
+    font-size: 0.9rem;
     transition: all 0.3s ease;
-    box-shadow: 0 0 15px rgba(167, 255, 235, 0.2);
 }
 
-.download-btn:hover {
+.btn-main:hover {
     background: var(--neon-green);
-    color: var(--bg-dark);
-    box-shadow: 0 0 30px rgba(167, 255, 235, 0.5);
+    color: black;
+    box-shadow: 0 0 15px var(--neon-green);
 }
 
-/* 調整底部展覽資訊：適用於所有裝置的基礎設定 */
-
+/* 底部資訊：校內展、新一代 */
 .event-info {
     display: flex;
     justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;       
-    
-    /* 電腦版間距：從 80px 調降到 40px ~ 50px 左右比較剛好 */
-    gap: 45px;             
-    
-    margin: 40px auto;
-    max-width: 800px;      /* 關鍵：限制底部資訊的總寬度，避免電腦版散太開 */
-    padding: 0 20px;
-    color: var(--neon-green);
-    opacity: 0.8;
-    font-size: 0.9rem;
-    letter-spacing: 0.12em; 
+    gap: 50px; /* 調整後的舒適間距 */
+    font-size: 0.85rem;
+    opacity: 0.6;
+    margin-top: 40px;
 }
 
-.event-info span {
-    white-space: nowrap;   
-    position: relative;
-}
-
-/* 分隔線設定也要跟著縮減距離 */
-.event-info span:not(:last-child)::after {
-    content: "";
-    position: absolute;
-    right: -22px;          /* 剛好在 gap 45px 的中間位置 */
-    top: 50%;
-    transform: translateY(-50%);
-    width: 1px;
-    height: 12px;
-    background-color: rgba(167, 255, 235, 0.3);
-}
-
-/* 針對手機版的自動微調 */
+/* 響應式：手機版微調 */
 @media (max-width: 1024px) {
-    .event-info {
-        gap: 20px 40px;    /* 手機版：上下間距 20px，左右間距 40px */
-        font-size: 0.8rem;
+    body {
+        background-image: url('svg/BT02.svg');
     }
-    
-    /* 隱藏概念描述文字 */
+
+    .main-content {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .visual-container, .content-section {
+        width: 100%;
+    }
+
+    /* 隱藏描述文字 */
     .concept-text {
-        display: none;
+        display: none !important;
     }
 
-    /* 如果隱藏後覺得標題圖片跟花朵太近，可以調整標題的下邊距 */
-    .header {
-        margin-bottom: 30px;
+    .event-info {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
     }
-
-    .event-info span:not(:last-child)::after {
-        display: none;     /* 手機版換行時隱藏分隔線，避免視覺混亂 */
-    }
-}
-
-.footer {
-    margin-top: 50px;
-    text-align: center;
-    font-size: 0.8rem;
-    opacity: 0.5;
 }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_圖層_2" data-name="圖層 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 253 67.22">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        font-family: NotoSansTC-DemiLight, 'Noto Sans TC';
+        font-size: 28px;
+        font-variation-settings: 'wght' 350;
+        font-weight: 300;
+        letter-spacing: .15em;
+      }
+
+      .cls-2 {
+        fill: none;
+        opacity: .6;
+        stroke: url(#_未命名漸層_4);
+        stroke-miterlimit: 10;
+      }
+    </style>
+    <linearGradient id="_未命名漸層_4" data-name="未命名漸層 4" x1="0" y1="26.89" x2="253" y2="26.89" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0e4b48" stop-opacity="0"/>
+      <stop offset=".01" stop-color="#1d5c56" stop-opacity=".1"/>
+      <stop offset=".05" stop-color="#3a7e70" stop-opacity=".29"/>
+      <stop offset=".08" stop-color="#559d89" stop-opacity=".46"/>
+      <stop offset=".12" stop-color="#6cb79e" stop-opacity=".6"/>
+      <stop offset=".16" stop-color="#80cdaf" stop-opacity=".73"/>
+      <stop offset=".2" stop-color="#8fdfbe" stop-opacity=".83"/>
+      <stop offset=".24" stop-color="#9bedc9" stop-opacity=".9"/>
+      <stop offset=".3" stop-color="#a4f7d1" stop-opacity=".96"/>
+      <stop offset=".36" stop-color="#a9fdd5" stop-opacity=".99"/>
+      <stop offset=".48" stop-color="#abffd7"/>
+      <stop offset=".66" stop-color="#a9fdd5" stop-opacity=".99"/>
+      <stop offset=".73" stop-color="#a5f8d1" stop-opacity=".96"/>
+      <stop offset=".78" stop-color="#9df0cb" stop-opacity=".92"/>
+      <stop offset=".82" stop-color="#93e3c1" stop-opacity=".85"/>
+      <stop offset=".86" stop-color="#85d3b4" stop-opacity=".76"/>
+      <stop offset=".89" stop-color="#74c0a5" stop-opacity=".65"/>
+      <stop offset=".92" stop-color="#5fa892" stop-opacity=".52"/>
+      <stop offset=".95" stop-color="#478d7c" stop-opacity=".37"/>
+      <stop offset=".98" stop-color="#2d6f64" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#104d4a" stop-opacity=".02"/>
+      <stop offset="1" stop-color="#0e4b48" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <g id="_圖層_1-2" data-name="圖層 1">
+    <rect class="cls-2" x=".5" y=".5" width="252" height="52.77" rx="13.36" ry="13.36"/>
+    <text class="cls-1" transform="translate(64.31 37.82)"><tspan x="0" y="0">線上瀏覽</tspan></text>
+  </g>
+</svg>
