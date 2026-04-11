@@ -35,7 +35,7 @@ body::before {
     z-index: -1; /* 確保在最底層 */
     
     /* 綁定動畫 */
-    animation: backgroundBreathing 12s infinite ease-in-out;
+    animation: backgroundBreathing 3s infinite ease-in-out; /* 改成 3s 快速呼吸 */
     pointer-events: none; /* 讓滑鼠點擊可以直接穿過這一層 */
     will-change: transform, filter; /* 告訴瀏覽器這層會動，跑起來更順 */
 }
@@ -47,10 +47,11 @@ body::before {
         transform: scale(1) translate(0, 0);
     }
     50% {
-        filter: brightness(1.15) contrast(1.1); /* 稍微變亮 */
-        transform: scale(1.02) translate(3px, 3px); /* 極微幅放大並位移 */
+        filter: brightness(1.5) contrast(1.2); /* 亮度調到 1.5 倍 */
+        transform: scale(1.1) translate(15px, 15px); /* 放大 1.1 倍並明顯位移 */
     }
 }
+
 /* 2. 佈局容器 */
 .container {
     display: flex;
@@ -115,12 +116,6 @@ body::before {
     opacity: 1;
 }
 
-/* HUD 數據框絕對定位 (釘在花朵四周) */
-.hud {
-    position: absolute;
-    width: 70px; /* 根據匯出尺寸調整 */
-    opacity: 0.8;
-}
 
 /* 1. 放大 HUD 框的尺寸 */
 .hud {
@@ -219,11 +214,10 @@ body::before {
 
 /* 7. 手機版 RWD 微調 */
 @media (max-width: 1024px) {
-    body {
-        /* 這裡請換成你從 AI 匯出的「手機版大背景圖」路徑 */
-        background-image: url('svg/BG02.jpg');
+    body::before {
+        background-image: url('svg/BG02.jpg'); /* 確保路徑 svg/BG02.jpg 是對的 */
     }
-
+    
     .container {
         padding: 30px 20px;
     }
