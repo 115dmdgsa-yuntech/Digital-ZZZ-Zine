@@ -29,7 +29,7 @@ body::before {
     height: 110%;
     
     /* 這裡放你的背景圖 */
-    background-image: url('images/bg_desktop.webp'); 
+    background-image: url('svg/BG01.jpg'); 
     background-size: cover;
     background-position: center;
     z-index: -1; /* 確保在最底層 */
@@ -101,19 +101,8 @@ body::before {
 .flower-img {
     width: 100%;
     height: auto;
-    transition: opacity 0.5s ease;
-}
-
-/* 處理 Hover 切換型態 */
-.flower-img.hover {
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-}
-
-.flower-wrapper:hover .flower-img.hover {
-    opacity: 1;
+    /* 也可以在這裡加上微弱的持續發光效果，讓單一花朵更有生命力 */
+    filter: drop-shadow(0 0 10px rgba(167, 255, 235, 0.4));
 }
 
 
@@ -233,6 +222,28 @@ body::before {
     .main-logo {
         width: 100%;
         filter: drop-shadow(0 0 10px rgba(167, 255, 235, 0.5));
+    }
+
+    /* 1. 縮小手機版的 HUD 尺寸 */
+    .hud {
+        width: 65px; /* 從電腦版的 100px 縮小回精緻的尺寸 */
+        opacity: 0.8; /* 手機上可以稍微降低一點不透明度，避免搶走主視覺風采 */
+    }
+
+    /* 2. 重新調整手機版的距離 (把它們往外推一點，不要太擠) */
+    .hud-tl { 
+        top: 0px;    /* 貼齊邊緣 */
+        left: 0px; 
+    }
+
+    .hud-br { 
+        bottom: 20px; /* 避開下方按鈕 */
+        right: 0px;  
+    }
+
+    .hud-bl { 
+        bottom: 0px; 
+        left: 10px;   
     }
 
     /* 3. 如果覺得按鈕也太寬，可以順便微調 */
