@@ -175,6 +175,26 @@ body {
         padding: 30px 20px;
     }
 
+.logo-wrapper {
+        width: 100%;
+        /* 原本可能是 100% 或 350px，我們把它縮小到螢幕寬度的 60% 左右 */
+        max-width: 220px; 
+        margin: 0 auto 20px auto; /* 置中並減少下方的間距 */
+    }
+
+    /* 2. 調整 Logo 本身的發光強度（手機螢幕小，發光太大會糊） */
+    .main-logo {
+        width: 100%;
+        filter: drop-shadow(0 0 10px rgba(167, 255, 235, 0.5));
+    }
+
+    /* 3. 如果覺得按鈕也太寬，可以順便微調 */
+    .button-group {
+        width: 100%;
+        max-width: 200px; /* 縮小按鈕寬度，讓視覺更精緻 */
+        margin: 0 auto;
+    }
+    
     .main-content {
         flex-direction: column; /* 改為上下排列 */
         gap: 30px;
