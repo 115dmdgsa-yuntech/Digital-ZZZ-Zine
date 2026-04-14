@@ -67,12 +67,12 @@
             // 1. 偵測是否為 iOS 裝置 (iPhone, iPod, 舊版 iPad)
             const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
             
-            // 2. 偵測是否為新版 iPadOS (Apple 把新版 iPad 偽裝成 Mac，所以要加測觸控點)
+            // 2. 偵測是否為新版 iPadOS
             const isMacWithTouch = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
 
             if (isIOS || isMacWithTouch) {
-                // 如果是蘋果行動裝置：直接在新分頁開啟 PDF，利用 iOS 強大的原生閱讀器
-                window.open('catalong2', '_blank');
+                // 【修改這裡】在同一個視窗直接開啟 PDF，完美避開 Safari 空白頁 Bug
+                window.location.href = 'catalog2.pdf';
             } else {
                 // 如果是 Android 或電腦版：開啟我們做好的漂亮彈出視窗
                 modal.style.display = "block";
