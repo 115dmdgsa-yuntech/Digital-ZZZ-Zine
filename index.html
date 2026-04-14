@@ -60,18 +60,31 @@
         const btn = document.getElementById("openCatalogBtn");
         const span = document.getElementsByClassName("close-btn")[0];
 
-        // 點擊「線上瀏覽」時打開視窗
+        // 點擊「線上瀏覽」時的動作
         btn.onclick = function(e) {
             e.preventDefault(); // 防止畫面跳到網頁最上方
-            modal.style.display = "block";
+
+            // 1. 偵測是否為 iOS 裝置 (iPhone, iPod, 舊版 iPad)
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            
+            // 2. 偵測是否為新版 iPadOS (Apple 把新版 iPad 偽裝成 Mac，所以要加測觸控點)
+            const isMacWithTouch = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
+
+            if (isIOS || isMacWithTouch) {
+                // 如果是蘋果行動裝置：直接在新分頁開啟 PDF，利用 iOS 強大的原生閱讀器
+                window.open('catalog.pdf', '_blank');
+            } else {
+                // 如果是 Android 或電腦版：開啟我們做好的漂亮彈出視窗
+                modal.style.display = "block";
+            }
         }
 
-        // 點擊右上角 X 時關閉視窗
+        // 點擊右上角 X 時關閉視窗 (針對 Android/電腦)
         span.onclick = function() {
             modal.style.display = "none";
         }
 
-        // 點擊視窗外部的黑色背景時，也可以關閉視窗
+        // 點擊視窗外部的黑色背景時關閉視窗 (針對 Android/電腦)
         window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";
