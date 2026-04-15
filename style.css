@@ -234,7 +234,7 @@ body::before {
     width: 100%;
     height: 100%;
     overflow-y: auto; /* 開啟垂直捲動 */
-    background-color: #1a1a1a; 
+    background-color: transparent;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -277,6 +277,7 @@ body::before {
     align-items: center;
     gap: 20px;
     z-index: 1; /* 放在底層，圖片載入後會將其蓋住 */
+    transition: opacity 0.5s ease;
 }
 
 .cells-row {

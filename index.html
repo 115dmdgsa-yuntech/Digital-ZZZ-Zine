@@ -71,6 +71,7 @@
         const btn = document.getElementById("openCatalogBtn");
         const span = document.getElementsByClassName("close-btn")[0];
         const viewer = document.getElementById("magazineViewer");
+        const cellLoader = document.querySelector(".cell-loader");
         
         const totalPages = 106; // 專刊總頁數
         let isLoaded = false;   // 標記是否已載入圖片
@@ -90,6 +91,17 @@
                     img.src = `svg/zzz_Digitalzine-${i}.jpg`; 
                     img.loading = 'lazy'; // 延遲載入關鍵
                     img.alt = `專刊第 ${i} 頁`;
+                    if (i === 1) {
+                        img.onload = function() {
+                            // 當第一張圖載入完成，讓動畫淡出
+                            cellLoader.style.opacity = "0";
+                            // 等待 0.5 秒淡出動畫結束後，徹底隱藏它，避免擋住點擊
+                            setTimeout(() => {
+                                cellLoader.style.display = "none";
+                            }, 500);
+                        };
+                    }
+                    
                     viewer.appendChild(img);
                 }
                 isLoaded = true; // 標記已完成載入
