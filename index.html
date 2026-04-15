@@ -72,36 +72,27 @@
         const span = document.getElementsByClassName("close-btn")[0];
         const viewer = document.getElementById("magazineViewer");
         
-        const totalPages = 3; // 專刊總頁數
+        const totalPages = 106; // 專刊總頁數
         let isLoaded = false;   // 標記是否已載入圖片
 
         // 點擊「線上瀏覽」
         btn.onclick = function(e) {
             e.preventDefault();
 
-            // 1. 偵測 iOS 裝置
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-            const isMacWithTouch = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
-
-            if (isIOS || isMacWithTouch) {
-                // iOS 裝置直接開啟 PDF (最穩定)
-                window.location.href = '115zzz_digitalzine.pdf';
-            } else {
-                // Android 或電腦版：開啟 Modal 並動態產生圖片
-                modal.style.display = "block";
-                
-                if (!isLoaded) {
-                    // 迴圈產生 106 張圖片
-                    for (let i = 1; i <= totalPages; i++) {
-                        const img = document.createElement('img');
-                        // 這裡對應你的檔名格式 zzz_Digitalzine-1.jpg
-                        img.src = `svg/zzz_Digitalzine-${i}.jpg`; 
-                        img.loading = 'lazy'; // 延遲載入關鍵
-                        img.alt = `專刊第 ${i} 頁`;
-                        viewer.appendChild(img);
-                    }
-                    isLoaded = true; // 標記已完成載入，下次開啟不用重新跑迴圈
+            // 既然已經換成圖片了，不分 iOS 或 Android，全部都直接打開彈出視窗！
+            modal.style.display = "block";
+            
+            if (!isLoaded) {
+                // 迴圈產生圖片
+                for (let i = 1; i <= totalPages; i++) {
+                    const img = document.createElement('img');
+                    // 記得確認這裡是你要測試的檔名
+                    img.src = `svg/zzz_Digitalzine-${i}.jpg`; 
+                    img.loading = 'lazy'; // 延遲載入關鍵
+                    img.alt = `專刊第 ${i} 頁`;
+                    viewer.appendChild(img);
                 }
+                isLoaded = true; // 標記已完成載入
             }
         }
 
