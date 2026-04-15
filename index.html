@@ -35,7 +35,7 @@
 
                 <div class="button-group">
                     <a href="#" id="openCatalogBtn" class="btn-main">線上瀏覽</a>
-                    <a href="zzz_Digitalzine.pdf" download="值植質_專刊" class="btn-main">下載收藏</a>
+                    <a href="zzz_digitalzine.pdf" download="值植質_專刊" class="btn-main">下載收藏</a>
                 </div>
             </div>
         </main>
@@ -70,13 +70,13 @@
              const isMacWithTouch = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
 
             if (isIOS || isMacWithTouch) {
-                window.location.href = 'zzz_Digitalzine.pdf';
+                window.location.href = 'zzz_digitalzine.pdf';
             } else {
             // 如果是 Android 或電腦版：
             // 👈 新增這個判斷：如果 iframe 還沒有載入過 PDF，才給它網址 (避免重複載入)
             if (!pdfIframe.src) {
             // 注意：請確認這裡是你最新的檔名
-            pdfIframe.src = "zzz_Digitalzine.pdf"; 
+            pdfIframe.src = "zzz_digitalzine.pdf"; 
         }
         modal.style.display = "block";
     }
