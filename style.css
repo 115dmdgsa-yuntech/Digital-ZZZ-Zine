@@ -89,37 +89,31 @@ body::before {
 .flower-img {
     width: 100%;
     height: auto;
-    /* 也可以在這裡加上微弱的持續發光效果，讓單一花朵更有生命力 */
-    filter: drop-shadow(0 0 10px rgba(167, 255, 235, 0.4));
+    /* 動畫綁定在最下方 */
 }
 
-
-/* 1. 放大 HUD 框的尺寸 */
+/* HUD 框設定 */
 .hud {
     position: absolute;
-    /* 原本可能是 60px 或 70px，我們把它放大到 100px 左右 */
     width: 100px; 
-    opacity: 0.9; /* 稍微增加不透明度，讓細線條更清楚 */
-    transition: all 0.3s ease; /* 增加一個平滑過渡 */
+    opacity: 0.9; 
+    transition: all 0.3s ease; 
     z-index: 10;
 }
 
-/* 2. 縮短與花朵的距離 (調整 top/left/right/bottom 的數值) */
-/* 數值越接近 0，離花朵越近；你可以根據視覺感受微調這些像素 */
-
 .hud-tl { 
-    top: 20px;    /* 從 -30px 改為正值，會往花朵中心靠攏 */
-    left: 20px;   /* 從 -30px 改為正值 */
+    top: 20px;    
+    left: 20px;   
 }
 
 .hud-br { 
-    bottom: 50px; /* 原本可能太遠，往上縮一點 */
-    right: 20px;  /* 往左縮一點 */
+    bottom: 50px; 
+    right: 20px;  
 }
 
 .hud-bl { 
     bottom: 20px; 
-    left: 40px;   /* 根據你的花瓣位置調整 */
+    left: 40px;   
 }
 
 /* 5. 右側操作區 (Content Section) */
@@ -133,14 +127,13 @@ body::before {
 
 .logo-wrapper {
     width: 100%;
-    max-width: 350px; /* 對應設計稿 Logo 大小 */
+    max-width: 350px; 
     margin-bottom: 30px;
 }
 
 .main-logo {
     width: 100%;
     height: auto;
-    /* CSS 加強霓虹感 */
     filter: drop-shadow(0 0 10px rgba(167, 255, 235, 0.5));
 }
 
@@ -150,7 +143,7 @@ body::before {
     letter-spacing: 0.05em;
     opacity: 0.8;
     margin-bottom: 50px;
-    max-width: 450px; /* 限制文字寬度，電腦版排版更好看 */
+    max-width: 450px; 
 }
 
 /* 按鈕群組 */
@@ -174,7 +167,7 @@ body::before {
     box-shadow: 0 0 15px var(--neon-green);
 }
 
-/* 6. 底部資訊：確保電腦版不換行 */
+/* 6. 底部資訊 */
 .footer {
     margin-top: auto;
     padding-top: 40px;
@@ -184,7 +177,7 @@ body::before {
     display: flex;
     justify-content: center;
     gap: 45px;
-    flex-wrap: nowrap; /* 強制不換行 */
+    flex-wrap: nowrap; 
     font-size: 0.85rem;
     opacity: 0.6;
 }
@@ -193,30 +186,28 @@ body::before {
    專刊彈出視窗 (Modal) 樣式設定
    ========================================= */
 .modal {
-    display: none; /* 預設隱藏 */
+    display: none; 
     position: fixed;
-    z-index: 999; /* 確保它在畫面最上層 */
+    z-index: 999; 
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    /* 配合你的深色背景，加上半透明黑底與模糊效果 */
     background-color: rgba(10, 26, 22, 0.85); 
     backdrop-filter: blur(8px);
 }
 
 .modal-content {
     position: relative;
-    margin: 2% auto; /* 上下留白，左右置中 */
+    margin: 2% auto; 
     width: 90%;
     max-width: 1200px;
     height: 90%;
-    /* 加上霓虹綠的邊框和發光感 */
     border: 1px solid var(--neon-green);
     box-shadow: 0 0 30px rgba(167, 255, 235, 0.2);
     border-radius: 8px;
     overflow: hidden;
-    background-color: #111; /* 避免載入時閃白光 */
+    background-color: #111; 
 }
 
 .close-btn {
@@ -236,65 +227,121 @@ body::before {
     text-shadow: 0 0 10px var(--neon-green);
 }
 
-.pdf-viewer {
+/* =========================================
+   專刊長捲動圖片檢視器
+   ========================================= */
+.magazine-viewer {
     width: 100%;
     height: 100%;
+    overflow-y: auto; /* 開啟垂直捲動 */
+    background-color: #1a1a1a; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    scroll-behavior: smooth;
+    position: relative;
+    z-index: 10; /* 確保圖片蓋在細胞動畫之上 */
 }
+
+.magazine-viewer img {
+    width: 100%;
+    max-width: 900px; /* 限制最大閱讀寬度 */
+    height: auto;
+    display: block;
+    margin-bottom: -1px; /* 消除圖片間的預設縫隙 */
+    background-color: transparent; 
+}
+
+/* 客製化捲動軸 (霓虹綠風格) */
+.magazine-viewer::-webkit-scrollbar {
+    width: 6px;
+}
+.magazine-viewer::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+}
+.magazine-viewer::-webkit-scrollbar-thumb {
+    background: var(--neon-green);
+    border-radius: 10px;
+}
+
+/* =========================================
+   細胞彈跳載入動畫 (Cell Loader)
+   ========================================= */
+.cell-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    z-index: 1; /* 放在底層，圖片載入後會將其蓋住 */
+}
+
+.cells-row {
+    display: flex;
+    gap: 15px;
+}
+
+.cell {
+    width: 40px;
+    height: 40px;
+    filter: drop-shadow(0 0 5px rgba(167, 255, 235, 0.6));
+    animation: cellBounce 1.4s infinite ease-in-out both;
+}
+
+.loading-text {
+    font-size: 0.85rem;
+    color: var(--neon-green);
+    opacity: 0.7;
+    letter-spacing: 0.1em;
+    margin-top: 10px;
+}
+
+/* 細胞交錯時間 (製造傳導感) */
+.cell-1 { animation-delay: -0.32s; }
+.cell-2 { animation-delay: -0.16s; }
+.cell-3 { animation-delay: 0s; }
 
 /* 7. 手機版 RWD 微調 */
 @media (max-width: 1024px) {
     body::before {
-        background-image: url('svg/BG02.jpg'); /* 確保路徑 svg/BG02.jpg 是對的 */
+        background-image: url('svg/BG02.jpg'); 
     }
     
     .container {
         padding: 30px 20px;
     }
 
-.logo-wrapper {
+    .logo-wrapper {
         width: 100%;
-        /* 原本可能是 100% 或 350px，我們把它縮小到螢幕寬度的 60% 左右 */
         max-width: 220px; 
-        margin: 0 auto 20px auto; /* 置中並減少下方的間距 */
+        margin: 0 auto 20px auto; 
     }
 
-    /* 2. 調整 Logo 本身的發光強度（手機螢幕小，發光太大會糊） */
     .main-logo {
         width: 100%;
         filter: drop-shadow(0 0 10px rgba(167, 255, 235, 0.5));
     }
 
-    /* 1. 縮小手機版的 HUD 尺寸 */
     .hud {
-        width: 65px; /* 從電腦版的 100px 縮小回精緻的尺寸 */
-        opacity: 0.8; /* 手機上可以稍微降低一點不透明度，避免搶走主視覺風采 */
+        width: 65px; 
+        opacity: 0.8; 
     }
 
-    /* 2. 重新調整手機版的距離 (把它們往外推一點，不要太擠) */
-    .hud-tl { 
-        top: 0px;    /* 貼齊邊緣 */
-        left: 0px; 
-    }
+    .hud-tl { top: 0px; left: 0px; }
+    .hud-br { bottom: 20px; right: 0px; }
+    .hud-bl { bottom: 0px; left: 10px; }
 
-    .hud-br { 
-        bottom: 20px; /* 避開下方按鈕 */
-        right: 0px;  
-    }
-
-    .hud-bl { 
-        bottom: 0px; 
-        left: 10px;   
-    }
-
-    /* 3. 如果覺得按鈕也太寬，可以順便微調 */
     .button-group {
         width: 100%;
-        max-width: 200px; /* 縮小按鈕寬度，讓視覺更精緻 */
+        max-width: 200px; 
         margin: 0 auto;
     }
 
     .main-content {
-        flex-direction: column; /* 改為上下排列 */
+        flex-direction: column; 
         gap: 30px;
     }
 
@@ -303,13 +350,13 @@ body::before {
         max-width: 100%;
     }
 
-    /* 關鍵修復：在手機版隱藏描述文字 */
+    /* 在手機版隱藏描述文字 */
     .concept-text {
         display: none !important;
     }
 
     .button-group {
-        flex-direction: column; /* 按鈕改為垂直堆疊 */
+        flex-direction: column; 
         gap: 15px;
         width: 100%;
         max-width: 250px;
@@ -322,37 +369,45 @@ body::before {
     }
 }
 
-/* --- 步驟 C：定義動畫內容 --- */
+/* --- 動畫定義區 --- */
 @keyframes backgroundBreathing {
     0%, 100% {
         filter: brightness(1) contrast(1);
         transform: scale(1) translate(0, 0);
     }
     50% {
-        filter: brightness(1.5) contrast(1.2); /* 亮度調到 1.5 倍 */
-        transform: scale(1.1) translate(15px, 15px); /* 放大 1.1 倍並明顯位移 */
+        filter: brightness(1.5) contrast(1.2); 
+        transform: scale(1.1) translate(15px, 15px); 
     }
 }
 
 @keyframes flower-breathe {
-  0%, 100% {
-    /* 靜止狀態：標準發光與透明度 */
-    filter: drop-shadow(0 0 10px rgba(167, 255, 235, 0.4));
-    opacity: 0.95;
-  }
-  50% {
-    /* 呼吸頂點：稍微增加發光強度、擴散範圍和透明度 */
-    filter: drop-shadow(0 0 20px rgba(167, 255, 235, 0.7)) brightness(1.1);
-    opacity: 1;
-  }
+    0%, 100% {
+        filter: drop-shadow(0 0 10px rgba(167, 255, 235, 0.4));
+        opacity: 0.95;
+    }
+    50% {
+        filter: drop-shadow(0 0 20px rgba(167, 255, 235, 0.7)) brightness(1.1);
+        opacity: 1;
+    }
+}
+
+@keyframes cellBounce {
+    0%, 80%, 100% { 
+        transform: scale(0.6);
+        opacity: 0.5;
+    } 
+    40% { 
+        transform: scale(1.1) translateY(-10px);
+        opacity: 1;
+        filter: drop-shadow(0 0 10px rgba(167, 255, 235, 0.9)) brightness(1.2);
+    }
 }
 
 /* 將動畫應用於花朵圖片 */
 .flower-img {
-  width: 100%;
-  height: auto;
-  /* 綁定動畫：flower-breathe, 持續 6 秒, 無限循環, 平滑過渡 */
-  animation: flower-breathe 6s infinite ease-in-out;
-  will-change: filter, opacity; /* 告訴瀏覽器這兩個屬性會動，跑起來更順 */
+    width: 100%;
+    height: auto;
+    animation: flower-breathe 6s infinite ease-in-out;
+    will-change: filter, opacity; 
 }
-

@@ -20,7 +20,7 @@
                 <img src="svg/MD.svg" class="hud hud-bl" alt="MD-XX">
                 
                 <div class="flower-wrapper">
-                    <img src="svg/FLOWER.png" class="flower-img static" alt="花1">
+                    <img src="svg/FLOWER.png" class="flower-img" alt="值植質-主視覺花朵">
                 </div>
             </div>
 
@@ -49,51 +49,74 @@
         </footer>
     </div>
 
-<div id="catalogModal" class="modal">
+    <div id="catalogModal" class="modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
-            <iframe id="pdfIframe" class="pdf-viewer" frameborder="0"></iframe>
+            
+            <div class="cell-loader">
+                <div class="cells-row">
+                    <img src="svg/CELL01.svg" class="cell cell-1" alt="cell">
+                    <img src="svg/CELL02.svg" class="cell cell-2" alt="cell">
+                    <img src="svg/CELL03.svg" class="cell cell-3" alt="cell">
+                </div>
+                <p class="loading-text">神經訊號傳導中...</p>
+            </div>
+
+            <div class="magazine-viewer" id="magazineViewer"></div>
         </div>
     </div>
-<script>
+
+    <script>
         const modal = document.getElementById("catalogModal");
         const btn = document.getElementById("openCatalogBtn");
         const span = document.getElementsByClassName("close-btn")[0];
-        const pdfIframe = document.getElementById("pdfIframe");
+        const viewer = document.getElementById("magazineViewer");
+        
+        const totalPages = 3; // 專刊總頁數
+        let isLoaded = false;   // 標記是否已載入圖片
 
-        // 點擊「線上瀏覽」時的動作
+        // 點擊「線上瀏覽」
         btn.onclick = function(e) {
-            e.preventDefault(); // 防止畫面跳到網頁最上方
+            e.preventDefault();
 
-            // 1. 偵測是否為 iOS 裝置 (iPhone, iPod, 舊版 iPad)
+            // 1. 偵測 iOS 裝置
             const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-             const isMacWithTouch = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
+            const isMacWithTouch = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
 
             if (isIOS || isMacWithTouch) {
+                // iOS 裝置直接開啟 PDF (最穩定)
                 window.location.href = '115zzz_digitalzine.pdf';
             } else {
-            // 如果是 Android 或電腦版：
-            // 👈 新增這個判斷：如果 iframe 還沒有載入過 PDF，才給它網址 (避免重複載入)
-            if (!pdfIframe.src) {
-            // 注意：請確認這裡是你最新的檔名
-            pdfIframe.src = "115zzz_digitalzine.pdf"; 
-        }
-        modal.style.display = "block";
-    }
+                // Android 或電腦版：開啟 Modal 並動態產生圖片
+                modal.style.display = "block";
+                
+                if (!isLoaded) {
+                    // 迴圈產生 106 張圖片
+                    for (let i = 1; i <= totalPages; i++) {
+                        const img = document.createElement('img');
+                        // 這裡對應你的檔名格式 zzz_Digitalzine-1.jpg
+                        img.src = `svg/zzz_Digitalzine-${i}.jpg`; 
+                        img.loading = 'lazy'; // 延遲載入關鍵
+                        img.alt = `專刊第 ${i} 頁`;
+                        viewer.appendChild(img);
+                    }
+                    isLoaded = true; // 標記已完成載入，下次開啟不用重新跑迴圈
+                }
+            }
         }
 
-        // 點擊右上角 X 時關閉視窗 (針對 Android/電腦)
+        // 關閉視窗
         span.onclick = function() {
             modal.style.display = "none";
         }
 
-        // 點擊視窗外部的黑色背景時關閉視窗 (針對 Android/電腦)
         window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
         }
     </script>
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({
@@ -101,6 +124,5 @@
             once: true
         });
     </script>
-
 </body>
 </html>
