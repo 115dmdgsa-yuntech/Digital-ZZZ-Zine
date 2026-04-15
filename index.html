@@ -67,44 +67,72 @@
     </div>
 
     <script>
-        const modal = document.getElementById("catalogModal");
+       const modal = document.getElementById("catalogModal");
         const btn = document.getElementById("openCatalogBtn");
         const span = document.getElementsByClassName("close-btn")[0];
         const viewer = document.getElementById("magazineViewer");
         const cellLoader = document.querySelector(".cell-loader");
         
-        const totalPages = 106; // 專刊總頁數
-        let isLoaded = false;   // 標記是否已載入圖片
+        const totalPages = 106; // 確認這裡是你的總頁數
+        let isLoaded = false;   
+
+        // 建立一個嚴格的「圖片觀察員」
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                // 當圖片進入到距離螢幕下方 500px 的範圍內時
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src; // 把隱藏的真實網址塞進去，這時才開始下載！
+                    observer.unobserve(img);   // 下載過就不再觀察了
+                }
+            });
+        }, {
+            root: viewer, // 以彈出視窗作為滾動基準
+            rootMargin: "0px 0px 500px 0px", // 提早 500px 預先載入，確保滑動不卡頓
+            threshold: 0
+        });
 
         // 點擊「線上瀏覽」
         btn.onclick = function(e) {
             e.preventDefault();
-
-            // 既然已經換成圖片了，不分 iOS 或 Android，全部都直接打開彈出視窗！
             modal.style.display = "block";
             
             if (!isLoaded) {
-                // 迴圈產生圖片
+                cellLoader.style.opacity = "1";
+                cellLoader.style.display = "flex";
+
                 for (let i = 1; i <= totalPages; i++) {
                     const img = document.createElement('img');
-                    // 記得確認這裡是你要測試的檔名
-                    img.src = `svg/zzz_Digitalzine-${i}.jpg`; 
-                    img.loading = 'lazy'; // 延遲載入關鍵
+                    
+                    // 👈 關鍵修改：不直接給 src，而是藏在 data-src 裡面
+                    img.dataset.src = `svg/zzz_Digitalzine-${i}.jpg`; 
                     img.alt = `專刊第 ${i} 頁`;
+                    
+                    // 為了防止圖片沒載入時高度塌陷，給它一個最小高度
+                    img.style.minHeight = "800px"; 
+
+                    // 監聽第 1 張圖的載入狀態來關閉細胞動畫
                     if (i === 1) {
                         img.onload = function() {
-                            // 當第一張圖載入完成，讓動畫淡出
+                            img.style.minHeight = "auto"; // 載入後恢復原本比例
                             cellLoader.style.opacity = "0";
-                            // 等待 0.5 秒淡出動畫結束後，徹底隱藏它，避免擋住點擊
                             setTimeout(() => {
                                 cellLoader.style.display = "none";
                             }, 500);
                         };
+                    } else {
+                        // 其他圖片載入後也把最小高度取消，保持自適應
+                        img.onload = function() {
+                            img.style.minHeight = "auto";
+                        }
                     }
-                    
+
                     viewer.appendChild(img);
+                    
+                    // 派觀察員去盯著這張圖片
+                    imageObserver.observe(img); 
                 }
-                isLoaded = true; // 標記已完成載入
+                isLoaded = true; 
             }
         }
 
