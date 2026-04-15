@@ -52,7 +52,11 @@
     <div id="catalogModal" class="modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
-            
+            <div class="progress-container">
+            <div class="progress-bar" id="myBar"></div>
+         </div>
+
+         <button id="backToTopBtn" class="back-to-top-btn" title="回到頂部">↑</button>
             <div class="cell-loader">
                 <div class="cells-row">
                     <img src="svg/CELL01.svg" class="cell cell-1" alt="cell">
@@ -72,10 +76,37 @@
         const span = document.getElementsByClassName("close-btn")[0];
         const viewer = document.getElementById("magazineViewer");
         const cellLoader = document.querySelector(".cell-loader");
+        const progressBar = document.getElementById("myBar");
+        const backBtn = document.getElementById("backToTopBtn");
         
         const totalPages = 106; // 確認這裡是你的總頁數
         let isLoaded = false;   
+        
+        // 監聽專刊容器的捲動
+        viewer.onscroll = function() {
+            // 1. 計算捲動百分比
+            const winScroll = viewer.scrollTop;
+            const height = viewer.scrollHeight - viewer.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            
+            // 2. 更新進度條長度
+            progressBar.style.width = scrolled + "%";
 
+            // 3. 控制「回到頂部」按鈕顯示 (滑動超過 1000px 才出現)
+            if (winScroll > 1000) {
+                backBtn.style.display = "block";
+            } else {
+                backBtn.style.display = "none";
+            }
+        };
+
+        // 點擊按鈕平滑回到頂部
+        backBtn.onclick = function() {
+            viewer.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        };
         // 建立一個嚴格的「圖片觀察員」
         const imageObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
