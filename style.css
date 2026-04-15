@@ -198,16 +198,22 @@ body::before {
 }
 
 .modal-content {
-    position: relative;
-    margin: 2% auto; 
+    position: absolute; /* 改為絕對定位 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 確保真正的垂直水平置中 */
+    margin: 0; /* 移除原本會導致偏移的 margin */
+    
     width: 90%;
     max-width: 1200px;
     height: 90%;
+    
+    /* 以下保留你原本的精美設計 */
     border: 1px solid var(--neon-green);
     box-shadow: 0 0 30px rgba(167, 255, 235, 0.2);
     border-radius: 8px;
     overflow: hidden;
-    background-color: #111; 
+    background-color: #111;
 }
 
 .close-btn {
@@ -414,6 +420,12 @@ body::before {
         gap: 15px;
     }
 }
+
+/* 手機版彈出視窗微調 */
+    .modal-content {
+        width: 95%; /* 手機螢幕小，讓寬度稍微撐滿一點，圖片更大 */
+        height: 85%; /* 高度縮小一點點，避開 iOS 上下的瀏覽器工具列 */
+    }
 
 /* --- 動畫定義區 --- */
 @keyframes backgroundBreathing {
